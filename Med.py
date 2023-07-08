@@ -3,7 +3,24 @@ import pandas as pd
 import numpy as np
 import pydeck as pdk
 import plotly.express as px
-url = r'C:\Users\CJMO7\PycharmProjects\streamlit-med\df.csv'
+import requests
+import zipfile
+import io
+url = "https://github.com/CJ7MO/streamlit-Med/blob/main/df.zip?raw=true"
+response = requests.get(url)
+if response.status_code == 200:
+    # Crear un objeto ZipFile desde los datos de respuesta
+    zip_file = zipfile.ZipFile(io.BytesIO(response.content))
+
+    # Extraer el archivo df.csv del archivo zip
+    zip_file.extractall()
+
+    # Cerrar el archivo zip
+    zip_file.close()
+
+
+
+
 
 st.title('Accidentes de Transito en Medellín y su zona Metropolitana')
 st.markdown('Esta aplicación es un tablero de control hecho con streamlit que puede ser usado'
@@ -11,7 +28,7 @@ st.markdown('Esta aplicación es un tablero de control hecho con streamlit que p
 
 @st.cache_data(persist=True)
 def load_data(nrows):
-    data = pd.read_csv(url, encoding='UTF-8-SIG', low_memory=False, nrows=nrows, parse_dates=[['FECHA', 'HORA']])
+    data = pd.read_csv("df.csv", encoding='UTF-8-SIG', low_memory=False, nrows=nrows, parse_dates=[['FECHA', 'HORA']])
     data.dropna(subset=['LATITUD', 'LONGITUD'], inplace=True)
     lowercase= lambda x: str(x).lower()
     data.rename(lowercase, axis='columns', inplace=True)
