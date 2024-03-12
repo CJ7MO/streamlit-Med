@@ -19,10 +19,21 @@ st.markdown('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allo
 st.markdown('Esta aplicación es un tablero de control hecho con streamlit que puede ser usado'
             '\npara analizar accidentes de transito ocurridos en Medellín y su area metropolitana en los años 2014 - 2021 🏍️💥🚗')
 
+url = "https://github.com/CJ7MO/streamlit-Med/blob/main/df.zip?raw=true"
+response = requests.get(url)
+if response.status_code == 200:
+    # Crear un objeto ZipFile desde los datos de respuesta
+    zip_file = zipfile.ZipFile(io.BytesIO(response.content))
+
+    # Extraer el archivo df.csv del archivo zip
+    zip_file.extractall()
+
+    # Cerrar el archivo zip
+    zip_file.close()
+
 @st.cache_data(persist=True)
 def load_data():
-    data = pd.read_csv("./data/df.csv", encoding='UTF-8-SIG',
-                       low_memory=False, parse_dates=[['FECHA', 'HORA']])
+    data = pd.read_csv("df.csv", encoding='UTF-8-SIG', low_memory=False, parse_dates=[['FECHA', 'HORA']])
     data.dropna(subset=['LATITUD', 'LONGITUD'], inplace=True)
     lowercase= lambda x: str(x).lower()
     data.rename(lowercase, axis='columns', inplace=True)
