@@ -13,18 +13,8 @@ import io
 warnings.filterwarnings('ignore')
 st.set_page_config(page_title="Medellín Accidents WebApp", page_icon=":racing_motorcycle:", layout="wide")
 
-html_title = """
-<style>
-    .title-test {
-    font-weight:bold;
-    padding:5px;
-    border-radius:6px
-    }
-</style>
-<center><h1 class="title-test">Accidentes de Transito en Medellín y su zona Metropolitana</h1></center>
-"""
-
-st.markdown(html_title, unsafe_allow_html=True)
+st.title("Accidentes de Transito en Medellín y su zona Metropolitana 🏍️💥🚗")
+st.markdown('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
 st.markdown('Esta aplicación es un tablero de control hecho con streamlit que puede ser usado'
             '\npara analizar accidentes de transito ocurridos en Medellín y su area metropolitana en los años 2014 - 2021 🏍️💥🚗')
 
