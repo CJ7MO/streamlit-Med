@@ -12,6 +12,7 @@ import io
 
 warnings.filterwarnings('ignore')
 st.set_page_config(page_title="Medellín Accidents WebApp", page_icon=":racing_motorcycle:", layout="wide")
+st.markdown('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
 
 html_title = """
 <style>
